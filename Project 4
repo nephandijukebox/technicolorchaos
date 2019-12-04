@@ -1,0 +1,62 @@
+#Program 4
+#Open a file, read file into dictionary, output to file
+#Stephanie Smith
+#November 23, 2019
+import string #import string module for string characters
+#define open file function
+def fileread():
+    switch='on'
+    while True:
+        try: #ask user to enter a file cand check to make sure it's a file
+            global myfile
+            myfile= open(input("Enter your filename:"))
+            break
+        except: #if it's not a file then ask for a valid file
+            IOError #I/O Error aka not a valid file
+            print("Not a valid file. Try again.") #inform user of invalid file
+            continue
+        
+#define dictionary function
+def make_dict():
+    global filedict
+    filedict=dict() #create and name dictionary
+    linenumber=1 #number the lines
+    for line in myfile.readlines(): #for each line in the file
+        for word in line.strip().split(): #remove whitespaces and break words
+            if word in filedict.keys(): #check words in dictionary
+                linelist=filedict.get(word)
+                linelist.append(linenumber) #add line number 
+            else: #if word not in dictionary
+                linelist=[linenumber]
+                filedict[word]=linelist
+        linenumber+=1
+#define write to file function
+def write2file():
+    new_file=open('words_index.txt', 'w+') #open file to write in
+    for word in sorted(filedict.keys()): #loop to sort
+            lines=filedict.get(word)
+            lines.sort()
+            new_file.write('{}'':'' {}\n'.format(word,','.join([str(l) for l in lines])))
+
+#define main function
+def main():
+     fileread()#fileread function
+     make_dict() #dictionary function
+     myfile.close#close the file
+     output='words_index.txt'
+     write2file()#file write function
+#run the program
+main()
+     
+
+        
+    
+
+            
+        
+       
+    
+
+
+
+
